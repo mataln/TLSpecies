@@ -1,3 +1,4 @@
+from re import X
 import utils
 import os
 import torch
@@ -7,6 +8,7 @@ from tqdm import tqdm
 from torch.utils.data import Dataset
 
 import pandas as pd
+import numpy as np
 
 class TreeSpeciesPointDataset(Dataset):
     """Dataset for tree species classification from
@@ -27,24 +29,24 @@ class TreeSpeciesPointDataset(Dataset):
         
         self.point_clouds = []
         self.labels = None
-        self.file_names = None
-        self.meta_frame = pd.DataFrame().reindex_like(meta_frame) #A new dataframe that will only contain the subset of examples from the original that are found in the data directory
-
+        self.file_names = []
+        self.ids = []
+        self.meta_frame = pd.DataFrame(columns=meta_frame.columns) #A new dataframe that will only contain the subset of examples from the original that are found in the data directory
         
-        self.image_dim = None
-        self.camera_fov_deg = None
-        self.f = None
-        self.camera_dist = None
-        self.transforms = None
+        self.image_dim = 256
+        self.camera_fov_deg = 90
+        self.f = 1
+        self.camera_dist = 1.4
+        self.transforms = ['none']
         
-        self.min_rotation = None
-        self.max_rotation = None
+        self.min_rotation = 0
+        self.max_rotation = 2*np.pi
         
-        self.min_translation = None
-        self.max_translation = None
+        self.min_translation = 0
+        self.max_translation = 0.93
         
-        self.min_scale = None
-        self.max_scale = None
+        self.min_scale = 0.71
+        self.max_scale = 1.51
         
         
         filenames = list(filter(lambda t:t.endswith('.txt'), os.listdir(self.data_dir)))
@@ -55,6 +57,7 @@ class TreeSpeciesPointDataset(Dataset):
         for i, file in tqdm(enumerate(filenames), total=no_files): #For each file in the directory
             file_name = self.data_dir + file
             self.file_names.append(file_name) #Save the file name
+            self.ids.append(file[:-4])
             cloud = utils.pc_from_txt(file_name) #Load the point cloud
             cloud = utils.center_and_scale(cloud) #Center and scale it
             
@@ -63,7 +66,7 @@ class TreeSpeciesPointDataset(Dataset):
             meta_entry = meta_frame[meta_frame.id==file[:-4]] #Get the relevant entry from the dataframe for this filename
             self.labels[i] = self.species.index(meta_entry.sp.values[0]) #Add the species label (int, index from self.species) to the list of labels
 
-            self.meta_frame = self.meta_frame.append(meta_entry) #Add to new meta frame
+            self.meta_frame = pd.concat([self.meta_frame, meta_entry], ignore_index=True)#, axis=0, join='outer') #Add to new meta frame
             
         self.labels = self.labels.long()
         
@@ -151,18 +154,18 @@ class TreeSpeciesPointDataset(Dataset):
             self.camera_dist = camera_dist      
         if transforms:
             self.transforms = transforms
-            
-            if 'rotation' in transforms:
-                self.min_rotation = min_rotation
-                self.max_rotation = max_rotation
-                
-            if 'translation' in transforms:
-                self.min_translation = min_translation
-                self.max_translation = max_translation
-                
-            if 'scaling' in transforms:
-                self.min_scale = min_scale
-                self.max_scale = max_scale
+        if min_rotation:
+            self.min_rotation = min_rotation
+        if max_rotation:
+            self.max_rotation = max_rotation
+        if min_translation:
+            self.min_translation = min_translation
+        if max_translation:
+            self.max_translation = max_translation
+        if min_scale:
+            self.min_scale = min_scale
+        if max_scale:
+            self.max_scale = max_scale
             
         return
     
@@ -203,6 +206,7 @@ class TreeSpeciesPointDataset(Dataset):
     
     def __len__(self):
         assert len(self.labels) == len(self.point_clouds)
+        assert len(self.meta_frame) == len(self.labels)
         return len(self.labels)
 
     def __getitem__(self, idx):
