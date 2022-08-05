@@ -10,9 +10,10 @@ dependencies:
   - matplotlib >=3.3
   - scikit-learn
   - wandb
+  - tqdm
+  - pandas
+  - seaborn
   
   - pytorch>=1.5.0
   - torchvision
   - cudatoolkit=11.1
-  - tqdm
-  - pandas
