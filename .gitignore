@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 data/*
+models/*
+simpleview_pytorch/*
