@@ -23,8 +23,6 @@ class TreeSpeciesPointDataset(Dataset):
         meta_frame = pd.read_csv(metadata_file, keep_default_na=False)
         self.species = list(meta_frame.groupby('sp')['id'].nunique().keys())
         
-        self.counts = meta_frame['sp'].value_counts() 
-        
         self.data_dir = data_dir
         
         self.point_clouds = []
@@ -69,6 +67,8 @@ class TreeSpeciesPointDataset(Dataset):
             self.meta_frame = pd.concat([self.meta_frame, meta_entry], ignore_index=True)#, axis=0, join='outer') #Add to new meta frame
             
         self.labels = self.labels.long()
+        self.counts = self.meta_frame['sp'].value_counts() 
+
         
         return
     
@@ -127,7 +127,7 @@ class TreeSpeciesPointDataset(Dataset):
         for k in range(len(self.labels)): #Apply species map to relabel
             self.labels[k] = torch.tensor(species_map[int(self.labels[k])])
             
-        self.counts = self.counts.drop(species)
+        self.counts = self.counts.drop(species, errors='ignore') #remove from the counts series, ignore if it's not in there.
         
         return
     
