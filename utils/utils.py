@@ -321,7 +321,8 @@ def plot_depth_images(depth_images, nrows=2, figsize=None):
     return fig, ax    
 
 def smooth_loss(pred, gold, smoothing=True):
-    """Calculate cross entropy loss, apply label smoothing if needed."""
+    """Calculate cross entropy loss, apply label smoothing if needed.
+    This isn't used any more, since torch now supports label smoothing."""
 
     gold = gold.contiguous().view(-1)
 
