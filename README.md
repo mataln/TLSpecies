@@ -60,5 +60,5 @@ The custom dataset class used to perform both 6-way perspective projection and d
 The forward pass for both an entire dataset and an individual sample are demonstrated in demo.ipynb
 
 ## Bibliography
-*Revisiting point cloud classification with a simple and effective baseline*, Goyal et al., 2021
+*Revisiting point cloud classification with a simple and effective baseline*, Goyal et al., 2021 <br/>
 *Competitive drivers of interspecific deviations of crown morphology from theoretical predictions measured with Terrestrial Laser Scanning*, Owen et al. 2021
