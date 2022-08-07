@@ -12,16 +12,16 @@ optimised, or in some way more flexible/easier to use. Otherwise, details for th
 
 [intro]
 
-##Folder Structure
+## Folder Structure
 
-##Demonstration notebook
+## Demonstration notebook
 
-##Projecting individual samples
+## Projecting individual samples
 
-##Building PyTorch datasets
+## Building PyTorch datasets
 
-##Inference
+## Inference
 
-###Single Sample
+### Single Sample
 
-###PyTorch datasets
+### PyTorch datasets
