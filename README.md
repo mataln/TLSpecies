@@ -13,7 +13,7 @@ optimised, or in some way more flexible/easier to use. Otherwise, details for th
 [intro]
 
 ## Folder Structure
-An outline of the layout of this repository can be seen below, including where data is expected to be stored, and in what format. Our data, and metadata can be found [here](https://zenodo.org/record/6962717#.Yu_Dc_HMK3I) (DOI:10.5281/zenodo.6962717; originally published in Owen et al. 2021).
+An outline of the layout of this repository can be seen below, including where data is expected to be stored, and in what format. Our data, and metadata can be found [here](https://zenodo.org/record/6962717#.Yu_Dc_HMK3I) (DOI:10.5281/zenodo.6962717; originally published in Owen et al. 2021). Note that the data at this repository has been downsampled to 5cm resolution to save space. Please cite this data using the DOIs for the zenodo repository (DOI:10.5281/zenodo.6962717) and the original paper (doi.org/10.1111/1365-2745.13670) if you make use of it.
 
 
 ```
@@ -56,8 +56,14 @@ A demonstration of the entire pipeline from raw data to the forward pass can be 
 ## Building PyTorch datasets
 The custom dataset class used to perform both 6-way perspective projection and data augmentation can be found in utils/dataset.py, and its use is demonstrated in demo.ipynb. Note that dataset is loaded in its entirety in one go, and lazy loading for very large datasets is not supported. Transforms will be forced off if performing the forward pass on an entire dataset.
 
+## Training
+Code for the training loop is located in utils/train.py, with usage demonstrated in demo.ipynb.
+
 ## Inference
 The forward pass for both an entire dataset and an individual sample are demonstrated in demo.ipynb
+
+## Citation
+Add once published
 
 ## Bibliography
 *Revisiting point cloud classification with a simple and effective baseline*, Goyal et al., 2021 <br/>
