@@ -8,7 +8,7 @@ optimised, or in some way more flexible/easier to use. Otherwise, details for th
 <br/>
 =======================================================================<br/>
 
-[Nice image here]
+![image](projections.png)
 
 [intro]
 
