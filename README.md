@@ -14,7 +14,7 @@ optimised, or in some way more flexible/easier to use. Otherwise, details for th
 
 ## Folder Structure
 
-'''
+```
 |-- LICENSE 
 |-- README.md 
 |-- TreeLS.yml 
@@ -46,7 +46,7 @@ optimised, or in some way more flexible/easier to use. Otherwise, details for th
 | 
 |-- sh 
 |   |-- dl-simpleview.sh
-'''
+```
 
 ## Demonstration notebook
 
