@@ -13,6 +13,8 @@ optimised, or in some way more flexible/easier to use. Otherwise, details for th
 [intro]
 
 ## Folder Structure
+An outline of the layout of this repository can be seen below, including where data is expected to be stored, and in what format. Our data, and metadata can be found [here](https://zenodo.org/record/6962717#.Yu_Dc_HMK3I) (DOI:10.5281/zenodo.6962717; originally published in Owen et al. 2021).
+
 
 ```
 |-- LICENSE 
@@ -39,23 +41,24 @@ optimised, or in some way more flexible/easier to use. Otherwise, details for th
 | 
 |-- utils 
 |   |-- __init__.py 
-|   |-- dataset.py 
-|   |-- utils.py 
-|   |-- train.py 
-|   |-- test.py 
+|   |-- dataset.py --> Custom pytorch dataset, including data augmentation
+|   |-- utils.py --> Various utilities not directly related to training, plotting & preprocessing etc.
+|   |-- train.py --> Training loop
+|   |-- test.py --> Test loop
 | 
 |-- sh 
-|   |-- dl-simpleview.sh
+|   |-- dl-simpleview.sh --> Pulls simpleview model code from skeleton repo (https://github.com/isaaccorley/simpleview-pytorch; which was available during review)
 ```
 
 ## Demonstration notebook
-
-## Projecting individual samples
+A demonstration of the entire pipeline from raw data to the forward pass can be seen in demo.ipnyb, including the projection process.
 
 ## Building PyTorch datasets
+The custom dataset class used to perform both 6-way perspective projection and data augmentation can be found in utils/dataset.py, and its use is demonstrated in demo.ipynb. Note that dataset is loaded in its entirety in one go, and lazy loading for very large datasets is not supported. Transforms will be forced off if performing the forward pass on an entire dataset.
 
 ## Inference
+The forward pass for both an entire dataset and an individual sample are demonstrated in demo.ipynb
 
-### Single Sample
-
-### PyTorch datasets
+## Bibliography
+*Revisiting point cloud classification with a simple and effective baseline*, Goyal et al., 2021
+*Competitive drivers of interspecific deviations of crown morphology from theoretical predictions measured with Terrestrial Laser Scanning*, Owen et al. 2021
