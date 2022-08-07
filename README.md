@@ -6,6 +6,8 @@ Implementation for TLS species ID paper - placeholder.
 was not available. Now that it has been published, you can find it [here](https://github.com/princeton-vl/SimpleView). You might find that it is better 
 optimised, or in some way more flexible/easier to use. Otherwise, details for this repository can be found below. <br/>
 <br/>
+Also note that this code has been modified slightly from the original research code, which is quite difficult to read/interpret in places. If you would like access to that version for whatever reason, you can contact me at mja-seventy-eight@cam.ac.uk, if you remove the dashes and swap the right two words for numbers. The output/performance remains the same. Don't be alarmed by any commit messages like "Fixed bug using val data for both val and test" in this repository; these bugs were not in the original research code and were introduced by the changes I made tidying the code for this repository.
+
 ==================================================================================<br/>
 
 ![image](projections.png)
