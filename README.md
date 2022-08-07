@@ -1,5 +1,5 @@
 # TreeLS
-Implementation for TLS species ID paper - placeholder.
+Implementation for TLS species ID paper - [Final name of paper]
 
 **(IMPORTANT) A note before this readme begins** - the code for this paper was written when the original publication, 
 *Revisiting Point Cloud Shape Classification with a Simple and Effective Baseline* (Goyal et al., 2021), was under review and code from the original authors 
