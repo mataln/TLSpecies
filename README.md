@@ -11,11 +11,11 @@ optimised, or in some way more flexible/easier to use. Otherwise, details for th
 <br/>
 Also note that this code has been modified slightly from the original research code, which is quite difficult to read/interpret in places. If you would like access to that version for whatever reason, you can contact me at mja-seventy-eight@cam.ac.uk, if you remove the dashes and swap the right two words for numbers. The output/performance remains the same. Don't be alarmed by any commit messages like "Fixed bug using val data for both val and test" in this repository; these bugs were not in the original research code and were introduced by the changes I made tidying the code for this repository.
 
-==================================================================================<br/>
+==============================================================================<br/>
 
 ![image](projections.png)
 
-[intro]
+This repository contains code for the paper "Title of paper once published", a deep learning-based tool for the automatic classification of tree species from point cloud data.
 
 ## Folder Structure
 An outline of the layout of this repository can be seen below, including where data is expected to be stored, and in what format. Our data, and metadata can be found [here](https://zenodo.org/record/6962717#.Yu_Dc_HMK3I) (DOI:10.5281/zenodo.6962717; originally published in Owen et al. 2021). Note that the data at this repository has been downsampled to 5cm resolution to save space. Please cite this data using the DOIs for the zenodo repository (DOI:10.5281/zenodo.6962717) and the original paper (doi.org/10.1111/1365-2745.13670) if you make use of it.
