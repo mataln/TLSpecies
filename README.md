@@ -24,7 +24,7 @@ An outline of the layout of this repository can be seen below, including where d
 ```
 |-- LICENSE 
 |-- README.md 
-|-- TreeLS.yml 
+|-- TLSpecies.yml 
 | 
 |-- data 
 |   |-- treesXYZ 
