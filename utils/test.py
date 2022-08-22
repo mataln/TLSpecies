@@ -78,10 +78,6 @@ def predict_from_dirs(dataset_dir, model_dir, params):#Load data
 
     model.load_state_dict(torch.load(model_dir))
 
-    #Load validation indices
-    val_indices = list(np.load(f'indices/new_{dataset}_indices_{params["random_seed"]}.npy'))
-    val_indices = [int(vi) for vi in val_indices]
-
     logits, labels, predictions = utils.predict(dataset=dataset, model=model, params=params)
     
     return logits, labels, predictions, dataset.species
