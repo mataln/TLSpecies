@@ -43,6 +43,7 @@ def train(train_data, val_data, test_data, model_dir, params, fname_prefix = str
     #wandb.login()
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    print(f"Device: {device}")
 
     train_data = torch.load(train_data)
     val_data = torch.load(val_data)
