@@ -1,6 +1,7 @@
-name: treels
+name: tlspecies
 
 channels:
+  - pytorch
   - conda-forge
 
 dependencies:
@@ -14,6 +15,7 @@ dependencies:
   - pandas
   - seaborn
   
-  - pytorch>=1.5.0
+  - cudatoolkit=11.3
+  - pytorch::pytorch>=1.11.0
   - torchvision
-  - cudatoolkit=11.1
+  
