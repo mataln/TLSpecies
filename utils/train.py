@@ -393,6 +393,10 @@ def train(train_data, val_data, test_data, model_dir, params, fname_prefix = str
 
     print('Finished Training')
 
+    if not(os.path.exists(model_dir)):
+        print("Creating model directory...")
+        os.makedirs(model_dir)
+
     if wandb_project:
         fname = wandb.run.name
 
@@ -411,7 +415,7 @@ def train(train_data, val_data, test_data, model_dir, params, fname_prefix = str
     torch.save(converged_model_state,
                '{model_dir}/{fname}'.format(
                    model_dir=model_dir,
-                   fname=wandb.fname_prefix+'_converged')
+                   fname=fname_prefix+'_converged')
               )
     print('Saved!')
     
@@ -420,7 +424,7 @@ def train(train_data, val_data, test_data, model_dir, params, fname_prefix = str
     torch.save(best_min_model_state,
                '{model_dir}/{fname}'.format(
                    model_dir=model_dir,
-                   fname=wandb.fname_prefix+'_best_prod')
+                   fname=fname_prefix+'_best_prod')
               )
     print('Saved!')
     
@@ -429,14 +433,14 @@ def train(train_data, val_data, test_data, model_dir, params, fname_prefix = str
     torch.save(best_test_model_state,
                '{model_dir}/{fname}'.format(
                    model_dir=model_dir,
-                   fname=wandb.fname_prefix+'_best_test'))
+                   fname=fname_prefix+'_best_test'))
                
     print('Saving best (test) producer accuracy model...')
     print('Best (test) min producer accuracy: {}'.format(best_min_test_acc))
     torch.save(best_min_test_model_state,
                '{model_dir}/{fname}'.format(
                    model_dir=model_dir,
-                   fname=wandb.fname_prefix+'_best_test_prod'))
+                   fname=fname_prefix+'_best_test_prod'))
                
 
 
