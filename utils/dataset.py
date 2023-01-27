@@ -21,6 +21,7 @@ class TreeSpeciesPointDataset(Dataset):
             root_dir (string): Directory with all the images.
         """
         meta_frame = pd.read_csv(metadata_file, keep_default_na=False)
+        meta_frame["id"] = meta_frame["id"].astype(str)
         self.species = list(meta_frame.groupby('sp')['id'].nunique().keys())
         
         self.data_dir = data_dir
@@ -60,8 +61,9 @@ class TreeSpeciesPointDataset(Dataset):
             cloud = utils.center_and_scale(cloud) #Center and scale it
             
             self.point_clouds.append(torch.from_numpy(cloud)) #Add the point cloud to the dataset 
-            
+
             meta_entry = meta_frame[meta_frame.id==file[:-4]] #Get the relevant entry from the dataframe for this filename
+
             self.labels[i] = self.species.index(meta_entry.sp.values[0]) #Add the species label (int, index from self.species) to the list of labels
 
             self.meta_frame = pd.concat([self.meta_frame, meta_entry], ignore_index=True)#, axis=0, join='outer') #Add to new meta frame
