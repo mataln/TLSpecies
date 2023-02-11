@@ -228,7 +228,8 @@ class TreeSpeciesPointDataset(Dataset):
             depth_images = self.get_depth_image(idx)
         
         labels = self.labels[idx]
-        
-        sample = {'depth_images': depth_images, 'labels': labels}
+        ids = self.ids[idx]
+
+        sample = {'depth_images': depth_images, 'labels': labels, 'ids': ids}
 
         return sample    
