@@ -23,7 +23,7 @@ from simpleview_pytorch import SimpleView
 
 from torch.utils.data.dataset import Dataset
 
-def predict(dataset, model, params):
+def predict(dataset, model, params, return_ids = False):
     '''
     Given a dataset, test indices (n<N indices)
     and a trained model, returns:
@@ -49,10 +49,12 @@ def predict(dataset, model, params):
         all_logits = torch.tensor([]).to(device)
         all_labels = torch.tensor([]).to(device)
         all_predictions = torch.tensor([]).to(device)
+        all_ids = []
         
         for data in loader:
                 depth_images = data['depth_images']
                 labels = data['labels']
+                ids = data['ids']
 
                 depth_images = depth_images.to(device=device)
                 labels = labels.to(device=device)
@@ -63,11 +65,14 @@ def predict(dataset, model, params):
                 all_logits = torch.cat((all_logits, scores))
                 all_labels = torch.cat((all_labels, labels))
                 all_predictions = torch.cat((all_predictions, predictions))
+                all_ids += ids
 
-                
-        return all_logits, all_labels, all_predictions
+        if return_ids:
+            return all_logits, all_labels, all_predictions, all_ids
+        else:
+            return all_logits, all_labels, all_predictions
     
-def predict_from_dirs(dataset_dir, model_dir, params):#Load data
+def predict_from_dirs(dataset_dir, model_dir, params, return_ids = False):#Load data
     dataset = torch.load(dataset_dir)
 
     #Load model
@@ -78,7 +83,10 @@ def predict_from_dirs(dataset_dir, model_dir, params):#Load data
 
     model.load_state_dict(torch.load(model_dir))
 
-    logits, labels, predictions = utils.predict(dataset=dataset, model=model, params=params)
-    
-    return logits, labels, predictions, dataset.species
+    if return_ids:
+        logits, labels, predictions, ids = utils.predict(dataset=dataset, model=model, params=params, return_ids=return_ids)  
+        return logits, labels, predictions, dataset.species, ids
+    else:
+        logits, labels, predictions = utils.predict(dataset=dataset, model=model, params=params, return_ids=return_ids)  
+        return logits, labels, predictions, dataset.species
 
