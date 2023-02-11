@@ -189,8 +189,10 @@ def train(train_data, val_data, test_data, model_dir, params, fname_prefix = str
     #wandb.watch(model)
     best_acc = 0
     best_min_acc = 0
-    
+    best_avg_acc = 0
+
     best_test_acc = 0
+    best_avg_test_acc = 0
     best_min_test_acc = 0
     
     for epoch in range(params['epochs']):  # loop over the dataset multiple times
@@ -309,6 +311,11 @@ def train(train_data, val_data, test_data, model_dir, params, fname_prefix = str
                 best_min_model_state = copy.deepcopy(model.state_dict())
                 best_min_acc = min(accs)
 
+            avg_acc = sum(accs)/len(accs)
+            if avg_acc > best_avg_acc:
+                best_avg_model_state = copy.deepcopy(model.state_dict())
+                best_avg_acc = avg_acc
+
             if wandb_project:    
                 wandb.log({"Best_min_acc":best_min_acc}, commit = False)
             #==================================
@@ -370,6 +377,11 @@ def train(train_data, val_data, test_data, model_dir, params, fname_prefix = str
                 best_min_test_model_state = copy.deepcopy(model.state_dict())
                 best_min_test_acc = min(accs)
 
+            avg_test_acc = sum(accs)/len(accs)
+            if avg_test_acc > best_avg_test_acc:
+                best_avg_test_model_state = copy.deepcopy(model.state_dict())
+                best_avg_test_acc = avg_test_acc
+
             if wandb_project:    
                 wandb.log({"Best_min_test_acc":best_min_test_acc}, commit = False)
             #==================================
@@ -428,6 +440,15 @@ def train(train_data, val_data, test_data, model_dir, params, fname_prefix = str
                    fname=fname_prefix+'_best_prod')
               )
     print('Saved!')
+
+    print('Saving best average (val) accuracy model...')
+    print('Best average producer accuracy: {}'.format(best_avg_acc))
+    torch.save(best_avg_model_state,
+               '{model_dir}/{fname}'.format(
+                   model_dir=model_dir,
+                   fname=fname_prefix+'_best_avg')
+              )
+    print('Saved!')
     
     print('Saving best (test) model...')
     print('Best overall (test) accuracy: {}'.format(best_test_acc))
@@ -442,6 +463,15 @@ def train(train_data, val_data, test_data, model_dir, params, fname_prefix = str
                '{model_dir}/{fname}'.format(
                    model_dir=model_dir,
                    fname=fname_prefix+'_best_test_prod'))
+
+    print('Saving best average (test) accuracy model...')
+    print('Best average producer accuracy: {}'.format(best_avg_test_acc))
+    torch.save(best_avg_test_model_state,
+               '{model_dir}/{fname}'.format(
+                   model_dir=model_dir,
+                   fname=fname_prefix+'_best_avg_test')
+              )
+    print('Saved!')
                
 
 
