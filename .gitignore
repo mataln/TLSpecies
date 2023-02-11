@@ -132,3 +132,5 @@ data/*
 models/*
 simpleview_pytorch/*
 *.txt
+
+*.csv
